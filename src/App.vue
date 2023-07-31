@@ -1,26 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app"> 
+    <AppTitle />
+    <AppContainer />
+    <button>Cadastrar Nova Categoria</button>
+
+  </div>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppTitle from './components/AppTitle.vue';
+import AppContainer from './components/AppContainer.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+ components:{
+  AppTitle,
+  AppContainer,
+ }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+*{
+  margin: 0px;
+  padding: 0px;
 }
 </style>
