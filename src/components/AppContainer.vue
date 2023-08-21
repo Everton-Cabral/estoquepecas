@@ -59,4 +59,17 @@ export default {
 .categorias{
     display: flex;
 }
+@media (max-width: 650px) { 
+    .categorias{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .container{
+       padding: 0px;
+        width: 100%;
+    }
+}
+
+
 </style>

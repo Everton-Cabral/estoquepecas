@@ -1,8 +1,11 @@
 <template>
     <div class="relatorio">
         <h1>
-            {{ $store.state.relatorio.Categoria }}
+            {{ $store.state.relatorio.Categoria }}      
         </h1>
+        <h3>
+            Quantidade Total {{ total}}
+        </h3>
      <div class="pesquisa">
         <div class="formulario">
             <input type="text"
@@ -10,8 +13,7 @@
                  class="codigo"
                  v-model="pesquisacod"
             > 
-            <img src="../img/lupa.png" alt="Lupa"
-        >
+            <img src="../img/lupa.png" alt="Lupa" class="mobileno">
         </div>
 
         <div class="formulario">
@@ -20,7 +22,7 @@
                  class="codigo"
                  v-model="pesquisacodfab" 
             >
-            <img src="../img/lupa.png" alt="Lupa">
+            <img src="../img/lupa.png" alt="Lupa" class="mobileno">
         </div>
 
         <div class="formulario">
@@ -29,17 +31,10 @@
                 class="aplicacao"
                 v-model="pesquisaapli" 
             >
-            <img src="../img/lupa.png" alt="Lupa">
+            <img src="../img/lupa.png" alt="Lupa" class="mobileno">
         </div>
 
-        <div class="formulario">
-            <input type="text" 
-                placeholder="Marca da Fabricante" 
-                class="fabricante"
-                
-            >
-            <img src="../img/lupa.png" alt="Lupa">
-        </div>
+        <img src="../img/voltar.png" alt="voltar" class="voltar" @click="voltar()">
 
      </div>   
  
@@ -48,22 +43,30 @@
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Código do Fabricante</th>
+                        <th class="mobileno">Código do Fabricante</th>
                         <th>Aplicação</th>
                         <th>Marca do Fabricante</th>
                         <th>Quantidade</th>
                         <th>Observações</th>
+                        <th class="mobileno">Corredor</th>
+                        <th class="mobileno">Coluna</th>
+                        <th class="mobileno">Estante</th>
+                        <th class="mobileno">Prateleira</th>
                     </tr>
                 </thead>
                
                 <tbody>
                     <tr v-for=" (item, index) in relatorioFiltradoFinal" :key="index">
                         <td>{{ item.cod }}</td>
-                        <td>{{ item.codFabricante }}</td>
+                        <td class="mobileno">{{ item.codFabricante }}</td>
                         <td>{{ item.carro }}</td>
                         <td>{{ item.marcaFabricante}}</td>
                         <td>{{ item.qtd }}</td>
                         <td>{{ item.obs }}</td>
+                        <td class="mobileno">{{ item.corredor }}</td>
+                        <td class="mobileno">{{ item.coluna }}</td>
+                        <td class="mobileno">{{ item.estante }}</td>
+                        <td class="mobileno">{{ item.prateleira}}</td>
 
                     </tr>
                 </tbody>
@@ -81,7 +84,13 @@ export default {
             pesquisacod: '',
             pesquisacodfab:'',
             pesquisaapli:'',
-            relatorioFiltrado: ''
+          
+            
+        }
+    },
+    methods:{
+        voltar(){
+            this.$router.push('/')
         }
     },
     computed: {
@@ -89,26 +98,46 @@ export default {
             'relatorio',
         ]),
         relatorioFiltradoFinal(){
-            const pesquisaLowerCase = this.pesquisacod.toLowerCase();
-            return  this.relatorio.items.filter( item => 
-            String(item.cod).toLowerCase().includes(pesquisaLowerCase) 
-        ) 
+           
+            /* const pesquisaLowerCase = this.pesquisacod.toLowerCase(); */
             
-        }
+            return  this.relatorio.items.filter( item =>  {
+                if(this.pesquisacod){
+                  return  String(item.cod).toLowerCase().includes(this.pesquisacod.toLowerCase())   
+                } else if(this.pesquisacodfab){
+                  return  String(item.codFabricante).toLowerCase().includes(this.pesquisacodfab.toLowerCase())  
+                } else if(this.pesquisaapli){
+                  return  String(item.carro).toLowerCase().includes(this.pesquisaapli.toLowerCase())
+                } else{
+                    return this.relatorio.items
+                }
+            }                       
+            )    
+        },
+        total(){
+            return this.relatorio.items.reduce((acumulador, item) => acumulador + parseFloat(item.qtd), 0);
+
+        } 
         
-    
-     
     },
-/*     watch: {
-       
-        pesquisa(){
-            const pesquisaLowerCase = this.pesquisa.toLowerCase();
-            console.log('moveu')
-        this.relatorio.items = this.relatorio.items.filter( item => 
-            String(item.cod).toLowerCase().includes(pesquisaLowerCase) 
-        ) 
-   }
-        } */
+    watch: {
+        pesquisacod(){
+            this.pesquisaapli = ''
+            this.pesquisacodfab = ''
+        },
+        pesquisacodfab(){
+            this.pesquisacod = ''
+            this.pesquisaapli = ''
+        },
+        pesquisaapli(){
+            this.pesquisacod = ''
+            this.pesquisacodfab = ''
+        }
+    },
+    monted:{
+
+    }
+
     }
 
 
@@ -161,6 +190,7 @@ img:hover{
 table {
     width: 100%;
     border-collapse: collapse;
+    
 }
 th, td {
     padding: 10px;
@@ -172,6 +202,53 @@ thead {
     top: 0;
     background-color: #f2f2f2;
     z-index: 1;
+}
+.voltar{
+    margin-left: 30px;
+}
+.voltar:hover{
+    opacity: 0.5;
+}
+
+
+@media (max-width: 650px) { 
+    .relatorio{
+        padding: 0px;
+    }
+    h1{
+        text-align: center;
+    }
+    .pesquisa{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    th, td {
+    padding: 2px;
+  }
+  
+  th {
+    font-size: 11px;
+  }
+  
+  td {
+    font-size: 10px;
+  }
+  .table{
+    widows: 100%;
+  }
+  .mobileno{
+      display: none;
+  }
+  .voltar{
+    display: none;
+  }
+  .formulario{
+    margin: 5px;
+  }
+  h3{
+    text-align: center;
+  }
 }
 
 </style>

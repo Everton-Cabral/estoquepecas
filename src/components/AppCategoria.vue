@@ -44,4 +44,11 @@ export default {
     opacity: 0.6;
     cursor: pointer;
 }
+
+@media (max-width: 650px) { 
+  .categoria{
+    width: 320px;
+    height: 150px;
+  }
+}
 </style>

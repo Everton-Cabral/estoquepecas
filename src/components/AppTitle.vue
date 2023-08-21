@@ -18,7 +18,7 @@ export default {
     
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #D9D9D9;
-    height: 75px;
+    height: 95px;
     color: rgba(255, 255, 255, 0.729);
     display: flex;
     align-items: center;
@@ -31,6 +31,11 @@ h1{
 .logo{
     height: 100%;
     margin-left: 30px;
+}
+@media (max-width: 650px) { 
+.title{
+    width: 100%;
+}
 }
 
 </style>
