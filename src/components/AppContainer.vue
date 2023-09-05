@@ -10,18 +10,23 @@
             <AppCategoria 
                 img="sapatas.jpg" 
                 descricao="Sapatas"
-                @click="irParaRelatorio(1)"
+                @click="irParaRelatorio(2)"
             />
 
             <AppCategoria 
                 img="barraaxial.png" 
                 descricao="Barra Axial"
-                @click="irParaRelatorio(2)"
+                @click="irParaRelatorio(1)"
             />
             <AppCategoria 
                 img="terminaldedirecao.jpeg" 
                 descricao="Terminal de Direção"
                 @click="irParaRelatorio(3)"
+            />
+            <AppCategoria 
+                img="tensor.jpg" 
+                descricao="Tensor de Correia Dentada"
+                @click="irParaRelatorio(4)"
             />
         </div>
     
@@ -58,6 +63,8 @@ export default {
 }
 .categorias{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 @media (max-width: 650px) { 
     .categorias{

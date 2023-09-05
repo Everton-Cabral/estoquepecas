@@ -4,7 +4,7 @@
             {{ $store.state.relatorio.Categoria }}      
         </h1>
         <h3>
-            Quantidade Total {{ total}}
+            Quantidade Total {{total}}
         </h3>
      <div class="pesquisa">
         <div class="formulario">
